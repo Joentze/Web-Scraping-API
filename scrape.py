@@ -36,7 +36,7 @@ def get_hrefs(link:str, xpaths:list)->list:
     return links
 
 def get_texts(link:str, contents:object)->object:
-    driver = webdriver.Chrome(PATH, options=chrome_options)
+    driver = webdriver.Chrome(execution_path=CHROMEDRIVER_PATH, options=chrome_options)
     driver.get(link)
     response_content = {}
     try:
