@@ -7,14 +7,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
+import os
+
 chrome_options = Options()
 #chrome_options.add_argument("--disable-extensions")
 #chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--headless")
 
-PATH = "./driver/chromedriver"
-
-
+PATH = os.environ("DRIVER_PATH")
 
 #driver = webdriver.Chrome(PATH)
 def get_hrefs(link:str, xpaths:list)->list:
