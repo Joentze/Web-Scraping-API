@@ -8,17 +8,18 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 import os
-
+GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
+CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 chrome_options = Options()
 #chrome_options.add_argument("--disable-extensions")
-#chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--headless")
-
-PATH = os.environ("DRIVER_PATH")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.binary_location = GOOGLE_CHROME_PATH
 
 #driver = webdriver.Chrome(PATH)
 def get_hrefs(link:str, xpaths:list)->list:
-    driver = webdriver.Chrome(PATH, options=chrome_options)
+    driver = webdriver.Chrome(execution_path=CHROMEDRIVER_PATH, options=chrome_options)
     driver.get(link)
     links = []
     try:
