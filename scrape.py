@@ -1,5 +1,7 @@
+from bs4 import BeautifulSoup
+from bs4.element import Comment
 from selenium import webdriver
-
+from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -12,12 +14,13 @@ chrome_options.add_argument("--headless")
 
 PATH = "./driver/chromedriver"
 
-#driver = webdriver.Chrome(PATH, options=chrome_options)
 
-driver = webdriver.Chrome(PATH)
+
+#driver = webdriver.Chrome(PATH)
 def get_hrefs(link:str, xpaths:list)->list:
-    links = []
+    driver = webdriver.Chrome(PATH, options=chrome_options)
     driver.get(link)
+    links = []
     try:
         for xpath in xpaths:
             try:
@@ -28,27 +31,46 @@ def get_hrefs(link:str, xpaths:list)->list:
             except:
                pass
     finally:
-        driver.get("data:,")
+        driver.quit()
     return links
 
 def get_texts(link:str, contents:object)->object:
-    response_content = {}
+    driver = webdriver.Chrome(PATH, options=chrome_options)
     driver.get(link)
+    response_content = {}
     try:
         for name, content in contents.items():
             print(name, content)
             try:
-                element = WebDriverWait(driver, 10).until(
-                    EC.presence_of_element_located((By.XPATH, content))
+                element = WebDriverWait(driver, 5).until(
+                    EC.visibility_of_element_located((By.XPATH, content))
                 )
-                response_content[name] = element.get_attribute("innerHTML")
+                response_content[name] = filter_text(element.get_attribute("innerHTML"))
             except:
-               pass
+                response_content["body"] = get_body_fallback(driver)
+                break
     finally:
-        driver.get("data:,")
+        driver.quit()
     return response_content
 
+def get_body_fallback(driver):
+    element = WebDriverWait(driver, 5).until(
+        EC.visibility_of_element_located((By.XPATH, "html/body"))
+    )
+    return filter_text(element.get_attribute("innerHTML"))
 
+def filter_text(text):
+    soup = BeautifulSoup(text, "html.parser")
+    texts = soup.find_all(text=True)
+    filtered_text = list(filter(tag_visible, texts))
+    return " ".join(filtered_text)
+
+def tag_visible(element):
+    if element.parent.name in ['style', 'script', 'head', 'title', 'meta', '[document]']:
+        return False
+    if isinstance(element, Comment):
+        return False
+    return True
 
 if __name__ == "__main__":
     pass
