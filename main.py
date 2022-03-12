@@ -20,8 +20,13 @@ class scrape_content(Resource):
         contents = post_received["article"]
         return {'article':get_texts(link, contents)}
 
+class hello_world(Resource):
+    def get(self):
+        return "Hello World!"
+
+
 api.add_resource(scrape_hrefs, '/scrape/href')
 api.add_resource(scrape_content, '/scrape/article')
-
+api.add_resource()
 if __name__ == "__main__":
     app.run(debug=True)
