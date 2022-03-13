@@ -55,6 +55,7 @@ def get_texts(link:str, contents:object)->object:
     return response_content
 
 def get_body_fallback(driver):
+    print("trying something else")
     try:
         element = WebDriverWait(driver, 5).until(
             EC.presence_of_element_located((By.XPATH, "/html/body"))
