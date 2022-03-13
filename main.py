@@ -10,8 +10,8 @@ class scrape_hrefs(Resource):
     def get(self):
         post_received = request.get_json()
         print(post_received)
-        link = post_received["data"]["link"]
-        xpaths = post_received["data"]["xpaths"]
+        link = post_received["link"]
+        xpaths = post_received["xpaths"]
         return {'hrefs':get_hrefs(link, xpaths)}
 
 class scrape_content(Resource):
