@@ -44,7 +44,7 @@ def get_texts(link:str, contents:object)->object:
             print(name, content)
             try:
                 element = WebDriverWait(driver, 5).until(
-                    EC.visibility_of_element_located((By.XPATH, content))
+                    EC.presence_of_element_located((By.XPATH, content))
                 )
                 response_content[name] = filter_text(element.get_attribute("innerHTML"))
             except:
@@ -56,7 +56,7 @@ def get_texts(link:str, contents:object)->object:
 
 def get_body_fallback(driver):
     element = WebDriverWait(driver, 5).until(
-        EC.visibility_of_element_located((By.XPATH, "html/body"))
+        EC.presence_of_element_located((By.XPATH, "html/body"))
     )
     return filter_text(element.get_attribute("innerHTML"))
 
