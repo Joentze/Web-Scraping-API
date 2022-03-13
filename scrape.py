@@ -11,7 +11,7 @@ import os
 GOOGLE_CHROME_PATH = '/app/.apt/opt/google/chrome/chrome'
 CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 chrome_options = Options()
-#chrome_options.add_argument("--disable-extensions")
+chrome_options.add_argument("--disable-extensions")
 chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
