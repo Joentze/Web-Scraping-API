@@ -27,6 +27,6 @@ class hello_world(Resource):
 
 api.add_resource(scrape_hrefs, '/scrape/href')
 api.add_resource(scrape_content, '/scrape/article')
-api.add_resource(hello_world, "hello")
+api.add_resource(hello_world, "/hello")
 if __name__ == "__main__":
     app.run(debug=True)
