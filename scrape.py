@@ -19,7 +19,7 @@ chrome_options.binary_location = GOOGLE_CHROME_PATH
 
 #driver = webdriver.Chrome(PATH)
 def get_hrefs(link:str, xpaths:list)->list:
-    driver = webdriver.Chrome(execution_path=CHROMEDRIVER_PATH, options=chrome_options)
+    driver = webdriver.Chrome(path=CHROMEDRIVER_PATH, options=chrome_options)
     driver.get(link)
     links = []
     try:
