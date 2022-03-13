@@ -55,11 +55,13 @@ def get_texts(link:str, contents:object)->object:
     return response_content
 
 def get_body_fallback(driver):
-    element = WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located((By.XPATH, "html/body"))
-    )
-    return filter_text(element.get_attribute("innerHTML"))
-
+    try:
+        element = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.XPATH, "/html/body"))
+        )
+        return filter_text(element.get_attribute("innerHTML"))
+    except:
+        pass
 def filter_text(text):
     soup = BeautifulSoup(text, "html.parser")
     texts = soup.find_all(text=True)
