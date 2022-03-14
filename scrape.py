@@ -8,15 +8,17 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 import os
-GOOGLE_CHROME_PATH = '/app/.apt/opt/google/chrome/chrome'
-CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
+GOOGLE_CHROME_PATH = os.environ("GOOGLE_CHROME_PATH")
+CHROMEDRIVER_PATH = os.environ("CHROMEDRIVER_PATH")
+
 chrome_options = Options()
-#chrome_options.add_argument("--disable-extensions")
+chrome_options.add_argument("--disable-extensions")
 chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.binary_location = GOOGLE_CHROME_PATH
-PATH = "./driver/chromedriver"
+
+#PATH = "./driver/chromedriver"
 #driver = webdriver.Chrome(PATH)
 def get_hrefs(link:str, xpaths:list)->list:
     driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, options=chrome_options)
@@ -72,6 +74,8 @@ def tag_visible(element):
     if isinstance(element, Comment):
         return False
     return True
+
+
 
 if __name__ == "__main__":
     pass
