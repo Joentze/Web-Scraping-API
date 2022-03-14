@@ -8,8 +8,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 import os
-GOOGLE_CHROME_PATH = os.environ("GOOGLE_CHROME_PATH")
-CHROMEDRIVER_PATH = os.environ("CHROMEDRIVER_PATH")
+GOOGLE_CHROME_PATH = os.environ["GOOGLE_CHROME_PATH"]
+CHROMEDRIVER_PATH = os.environ["CHROMEDRIVER_PATH"]
 
 chrome_options = Options()
 chrome_options.add_argument("--disable-extensions")
