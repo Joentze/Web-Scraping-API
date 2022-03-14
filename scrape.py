@@ -16,6 +16,7 @@ chrome_options.add_argument("--disable-extensions")
 chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.binary_location = GOOGLE_CHROME_PATH
 
 #PATH = "./driver/chromedriver"
@@ -46,7 +47,7 @@ def get_texts(link:str, contents:object)->object:
             print(name, content)
             try:
                 element = WebDriverWait(driver, 5).until(
-                    EC.visibility_of_element_located((By.XPATH, content))
+                    EC.presence_of_element_located((By.XPATH, content))
                 )
                 response_content[name] = filter_text(element.get_attribute("innerHTML"))
             except:
@@ -57,11 +58,14 @@ def get_texts(link:str, contents:object)->object:
     return response_content
 
 def get_body_fallback(driver):
-    element = WebDriverWait(driver, 5).until(
-        EC.visibility_of_element_located((By.XPATH, "html/body"))
-    )
-    return filter_text(element.get_attribute("innerHTML"))
-
+    print("trying something else")
+    try:
+        element = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.XPATH, "/html/body"))
+        )
+        return filter_text(element.get_attribute("innerHTML"))
+    except:
+        pass
 def filter_text(text):
     soup = BeautifulSoup(text, "html.parser")
     texts = soup.find_all(text=True)
