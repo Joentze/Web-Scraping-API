@@ -1,25 +1,29 @@
 from distutils.log import debug
 from flask import Flask, request
 from flask_restful import Resource, Api
-from scrape import get_hrefs, get_texts
+from scrape import get_hrefs, get_texts, get_from_child
 
 app = Flask(__name__)
 api = Api(app)
 
 class scrape_hrefs(Resource):
     def get(self):
-        post_received = request.get_json()
-        print(post_received)
-        link = post_received["link"]
-        xpaths = post_received["xpaths"]
+        get_received = request.get_json()
+        link = get_received["link"]
+        xpaths = get_received["xpaths"]
         return {'hrefs':get_hrefs(link, xpaths)}
 
 class scrape_content(Resource):
     def get(self):
-        post_received = request.get_json()
-        link = post_received["link"]
-        contents = post_received["article"]
+        get_received = request.get_json()
+        link = get_received["link"]
+        contents = get_received["article"]
         return {'article':get_texts(link, contents)}
+
+class scrape_from_child(Resource):
+    def get(self):
+        get_received = request.get_json()
+        return {"results":get_from_child(get_received)}
 
 class hello_world(Resource):
     def get(self):

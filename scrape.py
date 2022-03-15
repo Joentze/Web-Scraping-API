@@ -57,6 +57,23 @@ def get_texts(link:str, contents:object)->object:
         driver.quit()
     return response_content
 
+def get_from_child(grab_object:object)->list:
+    driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, options=chrome_options)
+    driver.get(grab_object["link"])
+    var = grab_object["identifier_type"]
+    var_content = grab_object["identifier"]
+    get_child = f"//div[@{var}='{var_content}']//child::*"
+    try:
+        elements = WebDriverWait(driver, 5).until(
+                EC.presence_of_all_elements_located((By.XPATH, get_child))
+            )
+        links = [element.get_attribute(grab_object["attribute"]) 
+                for element in elements 
+                if element.tag_name == grab_object["tag"]]
+    finally:
+        driver.quit()
+    return links
+
 def get_body_fallback(driver):
     print("trying something else")
     try:
@@ -66,6 +83,7 @@ def get_body_fallback(driver):
         return filter_text(element.get_attribute("innerHTML"))
     except:
         pass
+
 def filter_text(text):
     soup = BeautifulSoup(text, "html.parser")
     texts = soup.find_all(text=True)
