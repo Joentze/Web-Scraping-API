@@ -63,9 +63,10 @@ def get_from_child(grab_object:object)->list:
     main_tag = grab_object["main_tag"]
     var = grab_object["identifier_type"]
     var_content = grab_object["identifier"]
+    wait_time=int(grab_object["wait_time"])
     get_child = f"//{main_tag}[@{var}='{var_content}']//child::*"
     try:
-        elements = WebDriverWait(driver, 5).until(
+        elements = WebDriverWait(driver, wait_time).until(
                 EC.presence_of_all_elements_located((By.XPATH, get_child))
             )
         links = [element.get_attribute(grab_object["attribute"]) 
