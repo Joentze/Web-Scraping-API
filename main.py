@@ -28,7 +28,7 @@ class scrape_from_child_one(Resource):
 class scrape_from_child_many(Resource):
     def get(self):
         get_received = request.get_json()
-        return {"results":get_from_child_one(get_received)}
+        return {"results":get_from_child_many(get_received)}
 
 class hello_world(Resource):
     def get(self):
