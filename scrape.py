@@ -57,7 +57,7 @@ def get_texts(link:str, contents:object)->object:
         driver.quit()
     return response_content
 
-def get_from_child(grab_object:object)->list:
+def get_from_child_one(grab_object:object)->list:
     driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, options=chrome_options)
     driver.get(grab_object["link"])
     main_tag = grab_object["main_tag"]
@@ -75,6 +75,32 @@ def get_from_child(grab_object:object)->list:
     finally:
         driver.quit()
     return links
+
+def get_from_child_many(request_object:list)->list:
+    driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, options=chrome_options)
+    grab_objects = request_object["grab_objects"]
+    link = request_object["link"]
+    driver.get(link)
+    results = []
+    try:
+        for grab_object in grab_objects:
+            try:
+                main_tag = grab_object["main_tag"]
+                var = grab_object["identifier_type"]
+                var_content = grab_object["identifier"]
+                wait_time=int(grab_object["wait_time"])
+                get_child = f"//{main_tag}[@{var}='{var_content}']//child::*"
+                elements = WebDriverWait(driver, wait_time).until(
+                        EC.presence_of_all_elements_located((By.XPATH, get_child))
+                    )
+                results.append([element.get_attribute(grab_object["attribute"]) 
+                                for element in elements 
+                                if element.tag_name == grab_object["tag"]])
+            except:
+                pass
+    finally:
+        driver.quit()
+    return results
 
 def get_body_fallback(driver):
     print("trying something else")
