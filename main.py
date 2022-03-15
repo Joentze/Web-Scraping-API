@@ -1,7 +1,7 @@
 from distutils.log import debug
 from flask import Flask, request
 from flask_restful import Resource, Api
-from scrape import get_hrefs, get_texts, get_from_child_one, get_from_child_one
+from scrape import get_hrefs, get_texts, get_from_child_one, get_from_child_many
 
 app = Flask(__name__)
 api = Api(app)
