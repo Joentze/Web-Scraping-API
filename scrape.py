@@ -60,9 +60,10 @@ def get_texts(link:str, contents:object)->object:
 def get_from_child(grab_object:object)->list:
     driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, options=chrome_options)
     driver.get(grab_object["link"])
+    main_tag = grab_object["main_tag"]
     var = grab_object["identifier_type"]
     var_content = grab_object["identifier"]
-    get_child = f"//div[@{var}='{var_content}']//child::*"
+    get_child = f"//{main_tag}[@{var}='{var_content}']//child::*"
     try:
         elements = WebDriverWait(driver, 5).until(
                 EC.presence_of_all_elements_located((By.XPATH, get_child))
