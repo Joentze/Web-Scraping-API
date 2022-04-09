@@ -31,7 +31,7 @@ class scrape_from_child_one(Resource):
     def get(self):
         get_received = request.get_json()
         results = q.enqueue(get_from_child_one,
-                            json.dumps(get_received, indent=4))
+                            str(get_received))
         return {"results": results}
 
 

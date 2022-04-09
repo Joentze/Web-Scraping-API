@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
+import ast
 import os
 GOOGLE_CHROME_PATH = os.environ["GOOGLE_CHROME_PATH"]
 CHROMEDRIVER_PATH = os.environ["CHROMEDRIVER_PATH"]
@@ -66,6 +67,7 @@ def get_texts(link: str, contents: object) -> object:
 
 
 def get_from_child_one(grab_object) -> list:
+    grab_object = ast.literal_eval(grab_object)
     driver = webdriver.Chrome(
         executable_path=CHROMEDRIVER_PATH, options=chrome_options)
     driver.get(grab_object["link"])
@@ -74,7 +76,6 @@ def get_from_child_one(grab_object) -> list:
     var_content = grab_object["identifier"]
     wait_time = int(grab_object["wait_time"])
     get_child = f"//{main_tag}[@{var}='{var_content}']//child::*"
-    print(grab_object)
     try:
         elements = WebDriverWait(driver, wait_time).until(
             EC.presence_of_all_elements_located((By.XPATH, get_child))
