@@ -18,7 +18,6 @@ bidict==0.21.2
 bleach==3.3.0
 CacheControl==0.12.10
 cachetools==4.2.2
-camelot-py==0.10.1
 certifi==2021.5.30
 cffi==1.14.5
 chardet==4.0.0
@@ -101,7 +100,6 @@ pandas-datareader==0.9.0
 pandocfilters==1.4.3
 parso==0.8.2
 pathos==0.2.8
-pdfminer.six==20200517
 pdfplumber==0.5.28
 peewee==3.14.0
 pexpect==4.8.0
