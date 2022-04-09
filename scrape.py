@@ -74,6 +74,7 @@ def get_from_child_one(grab_object: object) -> list:
     var_content = grab_object["identifier"]
     wait_time = int(grab_object["wait_time"])
     get_child = f"//{main_tag}[@{var}='{var_content}']//child::*"
+    print(grab_object)
     try:
         elements = WebDriverWait(driver, wait_time).until(
             EC.presence_of_all_elements_located((By.XPATH, get_child))
@@ -91,6 +92,7 @@ def get_from_child_many(request_object: list) -> list:
         executable_path=CHROMEDRIVER_PATH, options=chrome_options)
     grab_objects = request_object["grab_objects"]
     link = request_object["link"]
+    print(request_object)
     driver.get(link)
     results = []
     try:
