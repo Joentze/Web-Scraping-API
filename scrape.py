@@ -65,7 +65,7 @@ def get_texts(link: str, contents: object) -> object:
     return response_content
 
 
-def get_from_child_one(grab_object: object) -> list:
+def get_from_child_one(**grab_object: object) -> list:
     driver = webdriver.Chrome(
         executable_path=CHROMEDRIVER_PATH, options=chrome_options)
     driver.get(grab_object["link"])
@@ -87,7 +87,7 @@ def get_from_child_one(grab_object: object) -> list:
     return links
 
 
-def get_from_child_many(request_object: list) -> list:
+def get_from_child_many(**request_object: list) -> list:
     driver = webdriver.Chrome(
         executable_path=CHROMEDRIVER_PATH, options=chrome_options)
     grab_objects = request_object["grab_objects"]
