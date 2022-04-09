@@ -8,8 +8,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 import os
-#GOOGLE_CHROME_PATH = os.environ["GOOGLE_CHROME_PATH"]
-CHROMEDRIVER_PATH = "./drvier/chromedriver"  # os.environ["CHROMEDRIVER_PATH"]
+GOOGLE_CHROME_PATH = os.environ["GOOGLE_CHROME_PATH"]
+CHROMEDRIVER_PATH = os.environ["CHROMEDRIVER_PATH"]
 
 chrome_options = Options()
 chrome_options.add_argument("--disable-extensions")
@@ -18,7 +18,7 @@ chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_argument("--enable-javascript")
-#chrome_options.binary_location = GOOGLE_CHROME_PATH
+chrome_options.binary_location = GOOGLE_CHROME_PATH
 
 #PATH = "./driver/chromedriver"
 #driver = webdriver.Chrome(PATH)
