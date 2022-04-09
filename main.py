@@ -30,8 +30,7 @@ class scrape_content(Resource):
 class scrape_from_child_one(Resource):
     def get(self):
         get_received = request.get_json()
-        results = q.enqueue(func=get_from_child_one,
-                            args=(str(get_received),))
+        results = q.enqueue(get_from_child_one, args=(str(get_received),))
         return {"results": results}
 
 
