@@ -4,7 +4,7 @@ from flask_restful import Resource, Api
 from scrape import get_hrefs, get_texts, get_from_child_one, get_from_child_many
 from rq import Queue
 from worker import conn
-
+import json
 q = Queue(connection=conn)
 
 app = Flask(__name__)
@@ -30,7 +30,8 @@ class scrape_content(Resource):
 class scrape_from_child_one(Resource):
     def get(self):
         get_received = request.get_json()
-        results = q.enqueue(get_from_child_one, kwargs=get_received)
+        results = q.enqueue(get_from_child_one,
+                            json.dumps(get_received, indent=4))
         return {"results": results}
 
 
