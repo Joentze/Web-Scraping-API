@@ -30,14 +30,14 @@ class scrape_content(Resource):
 class scrape_from_child_one(Resource):
     def get(self):
         get_received = request.get_json()
-        results = q.enqueue(get_from_child_one, get_received)
+        results = q.enqueue(get_from_child_one, args=(get_received,))
         return {"results": results}
 
 
 class scrape_from_child_many(Resource):
     def get(self):
         get_received = request.get_json()
-        results = q.enqueue(get_from_child_many, get_received)
+        results = q.enqueue(get_from_child_many, args=(get_received,))
         return {"results": results}
 
 
